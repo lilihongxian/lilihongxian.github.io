@@ -377,7 +377,7 @@
       
         
           
-            <h3 id="图片大纲"><a href="#图片大纲" class="headerlink" title="图片大纲"></a>图片大纲</h3><p><img src="https://raw.githubusercontent.com/lilihongxian/img/master/MessageQueue.png?token=Alzu83BIhkOEicFm2rmpZgJquzcxHhJzks5cPGA0wA%3D%3D" alt="MessageQueue"></p>
+            <h3 id="图片大纲"><a href="#图片大纲" class="headerlink" title="图片大纲"></a>图片大纲</h3><p><img src="https://raw.githubusercontent.com/lilihongxian/img/master/MessageQueue.png" alt="MessageQueue"></p>
 <blockquote>
 <p> 想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？</p>
 </blockquote>
@@ -429,7 +429,7 @@
 <li>为了消费消息，订阅者需要提前订阅该角色主题，并保持在线运行；</li>
 </ul>
 <p>支持订阅组的发布订阅模式：<br>发布订阅模式下，当发布者消息量很大时，显然单个订阅者的处理能力是不足的。实际上现实场景中是多个订阅者节点组成一个订阅组负载均衡消费topic消息即分组订阅，这样订阅者很容易实现消费能力线性扩展。<strong>可以看成是一个topic下有多个Queue，每个Queue是点对点的方式，Queue之间是发布订阅方式。</strong></p>
-<p><img src="https://raw.githubusercontent.com/lilihongxian/img/master/20151201162825775.jpg?token=Alzu8-U8NB_xIf-2tdTc4dSwKUZ2I-zaks5cPGEQwA%3D%3D" alt="发布/订阅"></p>
+<p><img src="https://raw.githubusercontent.com/lilihongxian/img/master/20151201162825775.jpg" alt="发布/订阅"></p>
 <h4 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h4><h5 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h5><p>生产者发送一条消息到queue，一个queue可以有很多消费者，但是一个消息只能被一个消费者接受，当没有消费者可用时，这个消息会被保存直到有 一个可用的消费者，所以Queue实现了一个可靠的负载均衡。</p>
 <h5 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h5><p>发布者发送到topic的消息，只有订阅了topic的订阅者才会收到消息。topic实现了发布和订阅，当你发布一个消息，所有订阅这个topic的服务都能得到这个消息，所以从1到N个订阅者都能得到这个消息的拷贝。</p>
 <p>这一部分主要是讲述了消息队列的概念和其通讯模式的分类，在下一部分会讲述其作用和应用场景，用兴趣的通讯可以关注一下！</p>
