@@ -107,7 +107,10 @@
 <meta property="og:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。 在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/lilihongxian/img/blob/master/MessageQueue.png?raw=true">
-<meta property="og:updated_time" content="2019-01-14T02:58:38.292Z">
+<meta property="og:image" content="https://blog-10039692.file.myqcloud.com/1506330130593_2564_1506330132919.png">
+<meta property="og:image" content="https://blog-10039692.file.myqcloud.com/1506330158945_9538_1506330161280.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20151201162825775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2019-01-14T03:15:27.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列的学习(一)">
 <meta name="twitter:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。 在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布">
@@ -363,6 +366,43 @@
 <li>发布/订阅(Publish/Subscribe)模式：发布/订阅功能使消息的分发可以突破目的队列地理指向的限制，使消息按照特定的主题甚至内容进行分发，用户或应用程序可以根据主题或内容接收到所需要的消息。发布/订阅功能使得发送者和接收者之间的耦合关系变得更为松散，发送者不必关心接收者的目的地址，而接收者也不必关心消息的发送地址，而只是根据消息的主题进行消息的收发。在MQ家族产品中，MQ Event Broker是专门用于使用发布/订阅技术进行数据通讯的产品，它支持基于队列和直接基于TCP/IP两种方式的发布和订阅。</li>
 <li>群集(Cluster)：为了简化点对点通讯模式中的系统配置，MQ提供Cluster(群集)的解决方案。群集类似于一个域(Domain)，群集内部的队列管理器之间通讯时，不需要两两之间建立消息通道，而是采用群集(Cluster)通道与其它成员通讯，从而大大简化了系统配置。此外，群集中的队列管理器之间能够自动进行负载均衡，当某一队列管理器出现故障时，其它队列管理器可以接管它的工作，从而大大提高系统的高可靠性。</li>
 </ol>
+<blockquote>
+<p>现在我拿点对点模式和发布/订阅模式做一个解释和对比：</p>
+</blockquote>
+<h4 id="点对点模式：-不可重复消费"><a href="#点对点模式：-不可重复消费" class="headerlink" title="点对点模式：(不可重复消费)"></a>点对点模式：(不可重复消费)</h4><p>点对点模式下包括三个角色：</p>
+<ul>
+<li>消息队列</li>
+<li>发送者 (生产者)</li>
+<li>接收者（消费者）</li>
+</ul>
+<p><img src="https://blog-10039692.file.myqcloud.com/1506330130593_2564_1506330132919.png" alt="p2p"></p>
+<p>消息发送者生产消息发送到queue中，然后消息接收者从queue中取出并且消费消息。消息被消费以后，queue中不再有存储，所以消息接收者不可能消费到已经被消费的消息。<strong>queue支持存在多个消费者，但是对一个消息而言，只会有一个消费者可以消费。</strong></p>
+<p>点对点模式特点：</p>
+<ul>
+<li>每个消息只有一个接收者（Consumer）(即一旦被消费，消息就不再在消息队列中)；</li>
+<li>发送者和接收者间没有依赖性，发送者发送消息之后，不管有没有接收者在运行，都不会影响到发送者下次发送消息；</li>
+<li>接收者在成功接收消息之后需向队列应答成功，以便消息队列删除当前接收的消息；</li>
+</ul>
+<h4 id="发布-订阅模式：-可以重复消费"><a href="#发布-订阅模式：-可以重复消费" class="headerlink" title="发布/订阅模式：(可以重复消费)"></a>发布/订阅模式：(可以重复消费)</h4><p>发布/订阅模式下包括三个角色：</p>
+<ul>
+<li>角色主题（Topic）</li>
+<li>发布者(Publisher)</li>
+<li>订阅者(Subscriber)</li>
+</ul>
+<p><img src="https://blog-10039692.file.myqcloud.com/1506330158945_9538_1506330161280.png" alt=""></p>
+<p>发布者将消息发送到Topic,系统将这些消息传递给多个订阅者。同时有多个消息消费者（订阅）消费该消息。<strong>和点对点方式不同，发布到topic的消息会被所有订阅者消费。</strong></p>
+<p>发布/订阅模式特点：</p>
+<ul>
+<li>每个消息可以有多个订阅者；</li>
+<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息。</li>
+<li>为了消费消息，订阅者需要提前订阅该角色主题，并保持在线运行；</li>
+</ul>
+<p>支持订阅组的发布订阅模式：<br>发布订阅模式下，当发布者消息量很大时，显然单个订阅者的处理能力是不足的。实际上现实场景中是多个订阅者节点组成一个订阅组负载均衡消费topic消息即分组订阅，这样订阅者很容易实现消费能力线性扩展。<strong>可以看成是一个topic下有多个Queue，每个Queue是点对点的方式，Queue之间是发布订阅方式。</strong></p>
+<p><img src="https://img-blog.csdn.net/20151201162825775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h4 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h4><h5 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h5><p>生产者发送一条消息到queue，一个queue可以有很多消费者，但是一个消息只能被一个消费者接受，当没有消费者可用时，这个消息会被保存直到有 一个可用的消费者，所以Queue实现了一个可靠的负载均衡。</p>
+<h5 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h5><p>发布者发送到topic的消息，只有订阅了topic的订阅者才会收到消息。topic实现了发布和订阅，当你发布一个消息，所有订阅这个topic的服务都能得到这个消息，所以从1到N个订阅者都能得到这个消息的拷贝。</p>
+<p>这一部分主要是讲述了消息队列的概念和其通讯模式的分类，在下一部分会讲述其作用和应用场景，用兴趣的通讯可以关注一下！</p>
+<p>==本文主要用于个人学习和总结，侵权请联系删除==</p>
 
       
     </div>
@@ -510,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片大纲"><span class="nav-number">1.</span> <span class="nav-text">图片大纲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列的概述"><span class="nav-number">2.</span> <span class="nav-text">消息队列的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通讯模式分类"><span class="nav-number">3.</span> <span class="nav-text">通讯模式分类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片大纲"><span class="nav-number">1.</span> <span class="nav-text">图片大纲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列的概述"><span class="nav-number">2.</span> <span class="nav-text">消息队列的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通讯模式分类"><span class="nav-number">3.</span> <span class="nav-text">通讯模式分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点对点模式：-不可重复消费"><span class="nav-number">3.1.</span> <span class="nav-text">点对点模式：(不可重复消费)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布-订阅模式：-可以重复消费"><span class="nav-number">3.2.</span> <span class="nav-text">发布/订阅模式：(可以重复消费)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别："><span class="nav-number">3.3.</span> <span class="nav-text">区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#点对点模式"><span class="nav-number">3.3.1.</span> <span class="nav-text">点对点模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发布订阅模式"><span class="nav-number">3.3.2.</span> <span class="nav-text">发布订阅模式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
