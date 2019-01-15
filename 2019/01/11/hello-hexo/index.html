@@ -99,22 +99,22 @@
 
 
 
-  <meta name="description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。 在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布">
+  <meta name="description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。">
 <meta name="keywords" content="消息队列,技术学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列的学习(一)">
 <meta property="og:url" content="http://yoursite.com/2019/01/11/hello-hexo/index.html">
 <meta property="og:site_name" content="北枳Blog">
-<meta property="og:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。 在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布">
+<meta property="og:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/lilihongxian/img/master/MessageQueue.png">
 <meta property="og:image" content="https://blog-10039692.file.myqcloud.com/1506330130593_2564_1506330132919.png">
 <meta property="og:image" content="https://blog-10039692.file.myqcloud.com/1506330158945_9538_1506330161280.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/lilihongxian/img/master/20151201162825775.jpg">
-<meta property="og:updated_time" content="2019-01-14T10:28:16.600Z">
+<meta property="og:updated_time" content="2019-01-15T03:23:58.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列的学习(一)">
-<meta name="twitter:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。 在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布">
+<meta name="twitter:description" content="图片大纲   想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？  消息队列的概述消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/lilihongxian/img/master/MessageQueue.png">
 
 
@@ -394,6 +394,7 @@
 <p> 想要系统的学习消息队列，我们首先需要对它有一个系统的认识 ，什么是消息队列？</p>
 </blockquote>
 <h3 id="消息队列的概述"><a href="#消息队列的概述" class="headerlink" title="消息队列的概述"></a>消息队列的概述</h3><p>消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被应用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。</p>
+<a id="more"></a>
 <p>在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布式应用提供有效的通信手段。为了管理需要共享的信息，对应用提供公共的信息交换机制是重要的。</p>
 <p>消息队列为构造以同步或异步方式实现的分布式应用提供了松耦合方法。消息队列的API调用被嵌入到新的或现存的应用中，通过消息发送到内存或基于磁盘的队列或从它读出而提供信息交换。消息队列可用在应用中以执行多种功能，比如要求服务、交换信息或异步处理等。</p>
 <p>中间件是一种独立的系统软件或服务程序，分布式应用系统借助这种软件在不同的技术之间共享资源，管理计算资源和网络通讯。它在计算机系统中是一个关键软件，它能实现应用的互连和互操作性，能保证系统的安全、可靠、高效的运行。中间件位于用户应用和操作系统及网络软件之间，它为应用提供了公用的通信手段，并且独立于网络和操作系统。中间件为开发者提供了公用于所有环境的应用程序接口，当应用程序中嵌入其函数调用，它便可利用其运行的特定操作系统和网络环境的功能，为应用执行通信功能。</p>
