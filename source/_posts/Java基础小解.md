@@ -1,3 +1,10 @@
+---
+title: Java基础小解
+date: 2019-01-24 14:40:29
+tags: [Java基础]
+categories: [基础学习]
+---
+
 ## Java基础小解
 
 ### 反射
